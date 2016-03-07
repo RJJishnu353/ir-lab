@@ -921,7 +921,7 @@ public class Indexer {
 		
 		public LinkedList<DocScore> getRankedListOf(String inputToken,int documentsToBeRetrieved) throws IOException{
 			
-			LinkedHashSet documentsPerQuery = new LinkedHashSet(); //Unique doc
+			LinkedHashSet<Integer> documentsPerQuery = new LinkedHashSet(); //Unique doc
 			
 			LinkedList<ArrayList<Posting>> postingListCollection = new LinkedList<ArrayList<Posting>>(); 
 			
@@ -937,9 +937,13 @@ public class Indexer {
 			
 			for(String token : inputToken.split(" ")){
 				
-				//System.out.println(token);
+				System.out.println(token);
 				
-				postingListCollection.add(this.getInvertedIndex().getInvertedIndex().get(token));
+				if (this.getInvertedIndex().getInvertedIndex().get(token) != null) {
+				
+					postingListCollection.add(this.getInvertedIndex().getInvertedIndex().get(token));
+					
+				}
 				
 			}
 			

@@ -1,8 +1,9 @@
+
 package ir_lib;
 
 /*
  * 
- * This class will be used to scan a paticular corpus folder 
+ * This class will be used to scan a particular corpus folder 
  * and return a treemap with docId as the key
  *            and a file type as a value.   
  */
