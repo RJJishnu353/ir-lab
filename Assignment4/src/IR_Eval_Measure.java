@@ -74,6 +74,8 @@ public class IR_Eval_Measure {
 		
 		//System.out.println("4");
 		
+		int documentsToBeRetrieved=20;
+		
 		for(Integer queryID : queryMap.keySet()){
 			
 			//System.out.println("queryID:"+queryID);
@@ -82,7 +84,7 @@ public class IR_Eval_Measure {
 			
 			//System.out.println("inputToken : " + inputToken);
 			
-			rankedList = irEval.getRankedListOf(inputToken, 20); //prints the top ranked documents according to the given query
+			rankedList = irEval.getRankedListOf(inputToken, documentsToBeRetrieved); //prints the top ranked documents according to the given query
 			
 			System.out.println("Getting evaluation table");
 			
@@ -92,10 +94,10 @@ public class IR_Eval_Measure {
 			
 			//System.out.println("DocList : " + docList.toString());
 			
-			metricContainer = irEval.getMetricOf(rankedList, docList,20);
+			metricContainer = irEval.getMetricOf(rankedList, docList,documentsToBeRetrieved);
 			
 			//Print format : queryID recall precision AP
-			
+							
 			System.out.println(queryID + " " + metricContainer.getRecall() + " " + metricContainer.getPrecision() + " " + metricContainer.getAveragePrecision());
 			
 		}
