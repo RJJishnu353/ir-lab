@@ -16,7 +16,6 @@ public class IR_Evaluation extends Indexer{
 	private String queryFile;
 	private String queryRelevanceFile;
 	private TreeMap<Integer, File> corpusFiles = super.getCorpusFilesWithID();
-	public static int index;
 	
 	public IR_Evaluation(String documentLocation, String stopWordLocation, String queryFile, String queryRelevanceFile) {
 		
@@ -188,29 +187,45 @@ public class IR_Evaluation extends Indexer{
 		
 		Double count = 0.0;
 		
+		int j;
+		
+		int index;
+		
 		//System.err.println("function:getMetricOf(rankedList, docList)" + "\n" + docList.toString());
 		
 		if(docList != null){
 		
 		int totalRelevantDoc = docList.size();
 		
-		for (this.index = 0; this.index < rankedList.size(); this.index++) {
+		for (index = 0; index < size; index++) {
 			
-			for (int j = 0; j < totalRelevantDoc; j++) {
+			for (j = 0; j < totalRelevantDoc; j++) {
 				
 				if (rankedList.get(index).getDocID() == docList.get(j)) { //checks for relevant doc
 					
 					//calculate recall,precision,AP
 					
-					recall = (++count) / totalRelevantDoc;
+					count++;
 					
-					//System.out.println((count) + " " +  totalRelevantDoc + " " + size + " ");
+					recall = (count) / totalRelevantDoc;
 					
 					precision = count / size; //out of retrieved howmany are relevant to the user
 					
 					averagePrecision = precision / count;
 					
-					//System.out.println(recall + " " + precision + " " + averagePrecision);
+					/* System.out.println("Count : " + count);
+					
+					System.out.println("Total Rel Doc : " + totalRelevantDoc);
+					
+					System.out.println("Retrieved : " + size);
+					
+					System.out.println("Recall : " + recall);
+					
+					System.out.println("Precision : " + precision);
+					
+					System.out.println("Average Precision : " + averagePrecision);
+					
+					*/
 					
 					break;
 					
