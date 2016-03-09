@@ -937,7 +937,7 @@ public class Indexer {
 			
 			for(String token : inputToken.split(" ")){
 				
-				System.out.println(token);
+				//System.out.println(token);
 				
 				if (this.getInvertedIndex().getInvertedIndex().get(token) != null) {
 				
