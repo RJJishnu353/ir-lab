@@ -15,10 +15,10 @@ public class IR_Eval_Measure {
 
 	public static void main(String[] args) throws IOException {
 	
-		String documentLocation = "/home/sysadmin/Downloads/hindi";
-		String stopWordLocation = "/home/sysadmin/Downloads/stopwords_hi.txt";
-		String queryFile = "/home/sysadmin/Downloads/query_HINDI.txt";
-		String queryRelevanceFile = "/home/sysadmin/Downloads/clinss13-en-hi.qrel";	
+		String documentLocation = "E:/Study/6thSem/IR/Lab/Lab_1/hindi_original";
+		String stopWordLocation = "E:/Study/6thSem/IR/Lab/Lab_1/stop-words/stop-words_hindi_1_hi.txt";
+		String queryFile = "E:/Study/6thSem/IR/Lab/Assignment_4/assignment_4/src/query_HINDI.txt";
+		String queryRelevanceFile = "E:/Study/6thSem/IR/Lab/Assignment_4/assignment_4/src/clinss13-en-hi.qrel";	
 		String currentString = "";
 		String currentFile;
 		
@@ -72,9 +72,15 @@ public class IR_Eval_Measure {
 		
 		MetricInfoContainer metricContainer;
 		
+		Double MRR = 0.0;
+		
 		//System.out.println("4");
 		
 		int documentsToBeRetrieved=20;
+		
+		System.out.println("Evaluation process is starting...");
+		
+		System.out.println("Query ID | Recall | Precision | AP");
 		
 		for(Integer queryID : queryMap.keySet()){
 			
@@ -84,23 +90,27 @@ public class IR_Eval_Measure {
 			
 			//System.out.println("inputToken : " + inputToken);
 			
-			rankedList = irEval.getRankedListOf(inputToken, documentsToBeRetrieved); //prints the top ranked documents according to the given query
+			rankedList = irEval.getRankedListWithoutPrintingOf(inputToken, documentsToBeRetrieved); //gets the top ranked documents according to the given query
 			
-			System.out.println("Getting evaluation table");
+			//System.out.println("Getting evaluation table");
 			
 			docList = evaluationTable.get(queryID);
 			
-			System.out.println("Calculating metrics");
+			//System.out.println("Calculating metrics");
 			
 			//System.out.println("DocList : " + docList.toString());
 			
 			metricContainer = irEval.getMetricOf(rankedList, docList,documentsToBeRetrieved);
 			
 			//Print format : queryID recall precision AP
-							
+			
 			System.out.println(queryID + " " + metricContainer.getRecall() + " " + metricContainer.getPrecision() + " " + metricContainer.getAveragePrecision());
 			
+			MRR += metricContainer.getMRR();
+			
 		}
+		
+		System.out.println("MRR : " + ( MRR / queryMap.size() ) );
 		
 	}
 
