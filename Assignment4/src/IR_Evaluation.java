@@ -60,7 +60,7 @@ public class IR_Evaluation extends Indexer{
 		
 		while((currentLine=br.readLine())!=null){
 		
-			System.out.println("getQueryMap");
+			//System.out.println("getQueryMap");
 			
 			queryMap.put(++count, currentLine);
 			
@@ -191,6 +191,8 @@ public class IR_Evaluation extends Indexer{
 		
 		int index;
 		
+		Double MRR = 0.0;
+		
 		//System.err.println("function:getMetricOf(rankedList, docList)" + "\n" + docList.toString());
 		
 		if(docList != null){
@@ -206,6 +208,14 @@ public class IR_Evaluation extends Indexer{
 					//calculate recall,precision,AP
 					
 					count++;
+					
+					if(count == 1){
+						
+						MRR = (double) (1 / (index + 1) );
+						
+						//System.out.println("Index:"+ (index + 1));
+						
+					}
 					
 					recall = (count) / totalRelevantDoc;
 					
@@ -237,7 +247,7 @@ public class IR_Evaluation extends Indexer{
 		
 		}
 		
-		return new MetricInfoContainer(recall, precision, averagePrecision);	
+		return new MetricInfoContainer(recall, precision, averagePrecision, MRR);	
 	
 	}
 	
