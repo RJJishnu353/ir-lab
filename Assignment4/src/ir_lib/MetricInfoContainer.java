@@ -7,14 +7,16 @@ public class MetricInfoContainer {
 	private Double recall;
 	private Double precision;
 	private Double averagePrecision;
+	private Double MRR;
 	
 	
-	public MetricInfoContainer(Double recall, Double precision, Double averagePrecision){
+	public MetricInfoContainer(Double recall, Double precision, Double averagePrecision, Double MRR){
 		
 		this.recall = recall;
 		this.precision = precision;
 		this.averagePrecision = averagePrecision;
-	
+		this.MRR = MRR;
+		
 	}
 	
 	public Double getRecall() {
@@ -52,6 +54,15 @@ public class MetricInfoContainer {
 		this.averagePrecision = averagePrecision;
 	
 	}
+
+	public Double getMRR() {
+		return MRR;
+	}
+
+	public void setMRR(Double MRR) {
+		this.MRR = MRR;
+	}
+	
 	
 	
 }
