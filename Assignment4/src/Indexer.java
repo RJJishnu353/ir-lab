@@ -987,7 +987,7 @@ public class Indexer {
 							
 							if(docID == currentDocID){
 								
-								score += postingListCollection.get(i).get(j).getTermFrequency() * Math.log10((this.getTotalNumberOfFiles(corpusFiles) * 1.0)/postingListCollection.get(i).size());
+								score += (1 + Math.log10(postingListCollection.get(i).get(j).getTermFrequency())) * Math.log10((this.getTotalNumberOfFiles(corpusFiles) * 1.0)/postingListCollection.get(i).size());
 								
 								break;
 								
@@ -1044,6 +1044,129 @@ public class Indexer {
 
 			
 		}
+
+		//Returns a linkedlist of ranked documents
+		
+				public LinkedList<DocScore> getRankedListWithoutPrintingOf(String inputToken,int documentsToBeRetrieved) throws IOException{
+					
+					LinkedHashSet<Integer> documentsPerQuery = new LinkedHashSet(); //Unique doc
+					
+					LinkedList<ArrayList<Posting>> postingListCollection = new LinkedList<ArrayList<Posting>>(); 
+					
+				    int currentDocID,docID;
+					
+					int indexCounter=0;
+					
+					Double score;
+					
+					TreeSet documentsPerQuerySet = new TreeSet();
+					
+					Iterator<Integer> iterator;
+					
+					for(String token : inputToken.split(" ")){
+						
+						//System.out.println(token);
+						
+						if (this.getInvertedIndex().getInvertedIndex().get(token) != null) {
+						
+							postingListCollection.add(this.getInvertedIndex().getInvertedIndex().get(token));
+							
+						}
+						
+					}
+					
+					for (int i = 0; i < postingListCollection.size(); i++) {
+						
+						for (int j = 0; j < postingListCollection.get(i).size(); j++) {
+							
+							documentsPerQuery.add(postingListCollection.get(i).get(j).getDocID());
+							
+						}
+						
+					}
+					
+					documentsPerQuerySet.addAll(documentsPerQuery);
+					
+					documentsPerQuery.clear();
+					
+					int num = documentsPerQuerySet.size();
+					
+					iterator = documentsPerQuerySet.iterator();
+					
+					docID=0;
+					
+					while (iterator.hasNext()) {
+					    
+						currentDocID = iterator.next();
+						
+						score = 0.0;
+						
+						for (int i = 0; i < postingListCollection.size(); i++) {
+							
+							for (int j = 0; j < postingListCollection.get(i).size(); j++) {
+								
+								docID = postingListCollection.get(i).get(j).getDocID();
+								
+								if(docID > currentDocID){
+									
+									break;
+									
+								}else{
+									
+									if(docID == currentDocID){
+										
+										score += postingListCollection.get(i).get(j).getTermFrequency() * Math.log10((this.getTotalNumberOfFiles(corpusFiles) * 1.0)/postingListCollection.get(i).size());
+										
+										break;
+										
+									}
+							
+						}
+					
+					}
+							
+					
+						}
+						
+						docScore.add(new DocScore(currentDocID,score));
+						
+					}
+					
+					
+					
+					Collections.sort(docScore, DocScore.DSComparator); //Sorting in descending order for ranking according to tfidf score
+					
+					
+						int till = documentsToBeRetrieved;
+						
+						if(num > documentsToBeRetrieved){
+							
+							till = documentsToBeRetrieved;
+							
+						}else if(num < documentsToBeRetrieved){
+							
+							till = num;
+							
+						}
+						
+						DecimalFormat df = new DecimalFormat("#.####");
+						
+						/*for (int i = 0; i < docScore.size(); i++) {
+							
+							System.out.println("Rank=" + i + " | Score=" + df.format(docScore.get(i).getScore()) + " | DocID=" + docScore.get(i).getDocID() + " | " + indexer.getFileTitle(docScore.get(i).getDocID(), "title") + " ");
+							
+						}*/
+						
+						
+						LinkedHashSet dScore = new LinkedHashSet (docScore);
+						
+						docScore = new LinkedList(dScore);
+						
+						return this.docScore;
+
+					
+				}
+
 		
 		public LinkedList<DocScore> getDocScore(){
 			
