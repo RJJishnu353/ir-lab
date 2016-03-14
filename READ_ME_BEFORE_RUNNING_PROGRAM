@@ -1,0 +1,18 @@
+(1) Here I have modified the qrel file and query_Hindi file according to my convinnience. The data is the same as you have given but I have modified its serial number according to my convinience. For example, english-00001.txt to 1,english-00012.txt to 12 etc.
+ 
+(2) The program by itself takes the qrel and query_HINDI file, no need to explicitly give it the file path of those.
+
+(3) Only input corpus folder path and stopwords file path
+
+(4) Here the output will have 
+
+	(a) query id | Recall | Precision | Average Precision
+	
+	(b) MRR - For extra credits
+
+		And also I have implemented MRR for extra credits.
+
+	        which will be shown in output at the end of the (a) part of the output.
+
+
+	
