@@ -15,12 +15,27 @@ public class IR_Eval_Measure {
 
 	public static void main(String[] args) throws IOException {
 	
-		String documentLocation = "E:/Study/6thSem/IR/Lab/Lab_1/hindi_original";
-		String stopWordLocation = "E:/Study/6thSem/IR/Lab/Lab_1/stop-words/stop-words_hindi_1_hi.txt";
-		String queryFile = "E:/Study/6thSem/IR/Lab/Assignment_4/assignment_4/src/query_HINDI.txt";
-		String queryRelevanceFile = "E:/Study/6thSem/IR/Lab/Assignment_4/assignment_4/src/clinss13-en-hi.qrel";	
+		String queryFile = "query_HINDI.txt";
+		String queryRelevanceFile = "clinss13-en-hi.qrel";	
+		
 		String currentString = "";
 		String currentFile;
+		
+		System.out.println("Please enter the correct location else null pointer exception will occur.");
+		
+		System.out.println("\n***The qrel file and query hindi file are already loaded. So don't worry.***\n");
+		
+		System.out.print("Enter corpus folder location : ");
+		
+		Scanner sc = new Scanner(System.in);
+		
+		String documentLocation = sc.nextLine();
+		
+		System.out.print("\nEnter corpus stopwords file location : ");
+		
+		sc = new Scanner(System.in);
+		
+		String stopWordLocation = sc.nextLine();
 		
 		IR_Evaluation irEval = new IR_Evaluation(documentLocation, stopWordLocation, queryFile, queryRelevanceFile);
 		
