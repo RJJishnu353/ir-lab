@@ -1,0 +1,16 @@
+First run docVectorFile.java
+   -- This will make a folder with a name that was given as input to this program during execution
+   
+Now run the Assignment5_Kmeans.java
+   -- This will take the document vector folder path, number of clusters and corpus folder path as input
+      and will do clustering(KMeans) and output top 5 documents from each cluster
+       
+      NOTE : If the cluster has document count >= 5, then top 5 will be shown according to their closeness to the
+             centroid else all the documents inside the cluster according to its closeness will be displayed.
+             
+             Ranking of docs show nearness to centroid of appropriate cluster.
+               
+
+KMeansWorking.java is just a trial code version, but it's a very handy piece of code and I want to archive it. So I am uploading it with my assignment.
+
+It has nothing to do with assignment
