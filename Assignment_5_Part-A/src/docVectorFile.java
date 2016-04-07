@@ -187,7 +187,7 @@ public class docVectorFile {
 			
 			dimension = 0;
 			
-			
+			int counter;
 			
 			for (String keyToken : indexer.getInvertedIndex().getInvertedIndex().keySet()) {
 			
@@ -201,7 +201,35 @@ public class docVectorFile {
 					
 					if(postingList.get(iterator).getDocID() < docID){
 						
-						continue;
+						//continue;
+						
+						if(iterator == (postingList.size() - 1)){
+							
+							content = "0";
+							
+							file = new File(dir +"/" + docID + ".txt");
+
+							// if file doesnt exists, then create it
+							
+							/*
+							 * if (!file.exists()) {
+							
+								file.createNewFile();
+							
+							}
+							*/
+
+							file.createNewFile();
+							
+							out = new PrintWriter(new BufferedWriter(new FileWriter(file.getAbsoluteFile(),true)));
+							
+							out.println(content);
+							
+							out.close();
+							
+							break;
+							
+						}
 						
 					}else if(postingList.get(iterator).getDocID() == docID){
 						
@@ -271,3 +299,4 @@ public class docVectorFile {
 	}
 	
 }
+
