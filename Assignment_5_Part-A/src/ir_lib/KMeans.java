@@ -270,7 +270,7 @@ public class KMeans {
 						
 						try{
 						
-						eleDistance = Math.sqrt((tempCOM.get(i) - tempVEC.get(i)) * (tempCOM.get(i) - tempVEC.get(i)));
+						eleDistance = (tempCOM.get(i) - tempVEC.get(i)) * (tempCOM.get(i) - tempVEC.get(i));
 						
 						distance += eleDistance;
 						
@@ -284,7 +284,7 @@ public class KMeans {
 					}
 					
 					try{
-					euclideanDistance[COM] = distance;
+					euclideanDistance[COM] = Math.sqrt(distance);
 					}catch(Exception e){
 						
 						System.out.println(e.getLocalizedMessage());
@@ -451,3 +451,4 @@ public class KMeans {
 
 
 }
+
